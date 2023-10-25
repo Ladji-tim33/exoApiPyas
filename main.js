@@ -1,73 +1,68 @@
-let section = document.querySelector('.section')
+let myList = document.querySelector('.myList')
 let mySelect = document.querySelector('#mySelect')
-let langue =  document.querySelector('.langue')
-
+const form = document.querySelector("form")
+let recupPays
 
 
 fetch('https://restcountries.com/v3.1/all')
   .then(res => res.json())
   .then(newRes => {
-      newRes.forEach(pays => {
-      const imagePays = pays.flags.svg;
-      const paysPopulation = pays.area;
-      const paysCapital = pays.capital;
-      const paysRegion = pays.continents;
-      const paysNames = pays.name.common
-
-      // console.log(paysNames);
-
-      const selectNames = document.createElement('option');
-      selectNames.textContent = paysNames;
-
-      mySelect.addEventListener('input', (e) => {
-        document.body.innerHTML = `${e.target.value}`
-      }) 
+    recupPays = newRes;
+    functionPays(recupPays);
+    function functionPays(data) {
+      data.forEach(pays => {
 
 
-      const elementImage = document.createElement('img');
-      elementImage.src = imagePays;
-      elementImage.style.width = "30%"
-      const myGrandDiv = document.createElement('div');
-      const myDiv = document.createElement('div');
+        const myCard = document.createElement("div");
+        myCard.className = "col-12 col-lg-3  mx-auto ";
+        myCard.style.width = "18rem";
+        myCard.innerHTML += `
+          <div class="card ">
+            <div class="myDivImage"><img src="${pays.flags.png}" class=" myImage" alt="image"></div>
+            <div class="card-body">
+              <h5 class="card-title mb-3 ">${pays.name.common}</h5>
+              <ul class=" bg-transparent">
+                <li class="list-group-item  bg-transparent ">
+                <span class="fw-bold">Population</span> : ${pays.population}
+                </li>
+                <li class="list-group-item  bg-transparent">
+                <span class="fw-bold">Region</span> : ${pays.region}
+                </li>
+                <li class="list-group-item  bg-transparent">
+                <span class="fw-bold">Capital</span> : ${pays.capital}
+                </li>
+              </ul>
+            </div>
+          </div>
+        `;
+        
       
-      const myPara = document.createElement('p');
-      myPara.textContent = "Pays : " + paysNames;
-      myPara.style.fontSize = "30px"
+            myList.appendChild(myCard);
+          });
+    }
 
-      const myPara1 = document.createElement('p');
-      myPara1.textContent = "Population : " + paysPopulation;  
-       myPara1.style.fontSize = "30px"
-
-      const myPara2 = document.createElement('p');
-      myPara2.textContent = "Capital : " + paysCapital;
-      myPara2.style.fontSize = "30px"
-
-      const myPara3 = document.createElement('p');
-      myPara3.textContent = "Region : " + paysRegion;
-      myPara3.style.marginBottom = "20px"
-      myPara3.style.fontSize = "30px"
-
-      
-
-      // Créez un div pour chaque pays
-      const divPays = document.createElement('div');
-      divPays.appendChild(elementImage);
-      myDiv.appendChild(myPara);
-      myDiv.appendChild(myPara1);
-      myDiv.appendChild(myPara2);
-      myDiv.appendChild(myPara3);
-      myGrandDiv.appendChild(myDiv);
-      divPays.appendChild(myGrandDiv);
-
-
-      mySelect.appendChild(selectNames);
-
-      section.appendChild(divPays);
-    });
+    form.addEventListener("input", (e) => {
+      const recupValeur = e.target.value;
+      myList.innerHTML = "";
+      const recupFilter = recupPays.filter(
+        (element) =>
+          element.region.toLowerCase().includes(recupValeur.toLowerCase())
+      );
+      // console.log(dataFilter);
+      functionPays(recupFilter);
+      });
   })
   .catch(error => {
     console.error('Une erreur s\'est produite :', error);
   });
   
+  
+  
+
+//   container.appendChild(countryCard);
+// });
+// }
+
+
 
  
