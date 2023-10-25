@@ -9,8 +9,8 @@ fetch('https://restcountries.com/v3.1/all')
   .then(newRes => {
     recupPays = newRes;
     functionPays(recupPays);
-    function functionPays(data) {
-      data.forEach(pays => {
+    function functionPays(dataPays) {
+      dataPays.forEach(pays => {
 
 
         const myCard = document.createElement("div");
@@ -48,7 +48,6 @@ fetch('https://restcountries.com/v3.1/all')
         (element) =>
           element.region.toLowerCase().includes(recupValeur.toLowerCase())
       );
-      // console.log(dataFilter);
       functionPays(recupFilter);
       });
   })
@@ -57,11 +56,7 @@ fetch('https://restcountries.com/v3.1/all')
   });
   
   
-  
 
-//   container.appendChild(countryCard);
-// });
-// }
 
 
 
