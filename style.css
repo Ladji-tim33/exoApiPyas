@@ -1,3 +1,17 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.myBody{
+    background-color:   hsl(0, 10%, 98%);
+    color: hsl(200, 15%, 8%);
+}
+
+.myBodyDark {
+    background: hsl(207, 26%, 17%) ;
+    color: hsl(0, 0%, 100%);
+}
 .myDivImage {
     cursor: pointer;
     height: 190px;
@@ -10,3 +24,13 @@
     margin-top: auto;
 
 }
+
+#myBack{
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.myUl{
+    background-color:  hsl(0, 10%, 98%);
+}
+
